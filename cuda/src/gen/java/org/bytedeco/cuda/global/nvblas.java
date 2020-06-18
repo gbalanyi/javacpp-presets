@@ -16,7 +16,7 @@ public class nvblas extends org.bytedeco.cuda.presets.nvblas {
 // Parsed from <nvblas.h>
 
 /*
- * Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
+ * Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
  *
  * NOTICE TO LICENSEE:
  *

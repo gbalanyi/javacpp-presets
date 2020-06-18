@@ -101,8 +101,8 @@ public class cublas extends org.bytedeco.cuda.presets.cublas {
 
 public static final int CUBLAS_VER_MAJOR = 10;
 public static final int CUBLAS_VER_MINOR = 2;
-public static final int CUBLAS_VER_PATCH = 1;
-public static final int CUBLAS_VER_BUILD = 243;
+public static final int CUBLAS_VER_PATCH = 2;
+public static final int CUBLAS_VER_BUILD = 89;
 public static final int CUBLAS_VERSION =  (CUBLAS_VER_MAJOR * 1000 + 
                          CUBLAS_VER_MINOR *  100 + 
                          CUBLAS_VER_PATCH);
@@ -6137,7 +6137,7 @@ public static native @Cast("cublasStatus_t") int cublasZtrttp( cublasContext han
 // Parsed from <cublas.h>
 
 /*
- * Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
+ * Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
  *
  * NOTICE TO LICENSEE:
  *
@@ -7025,7 +7025,7 @@ public static native void cublasZtrmm(@Cast("char") byte side, @Cast("char") byt
 // Parsed from <cublasXt.h>
 
 /*
- * Copyright 1993-2014 NVIDIA Corporation.  All rights reserved.
+ * Copyright 1993-2019 NVIDIA Corporation. All rights reserved.
  *
  * NOTICE TO LICENSEE:
  *
