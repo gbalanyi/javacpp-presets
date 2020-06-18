@@ -1,0 +1,3 @@
+mvn clean deploy -Djavacpp.platform=linux-arm64 -Djavacpp.platform.library.path=/usr/local/cuda -Djavacpp.includePath=/usr/local/cuda/include:/usr/include -s <settings.xml> -f cuda/
+mvn clean deploy -Djavacpp.platform=linux-arm64 -Djavacpp.platform.library.path=/usr/local/cuda -Djavacpp.includePath=/usr/local/cuda/include:/usr/include -s <settings.xml> -f cuda/platform/
+mvn clean deploy -Djavacpp.platform=linux-arm64 -Djavacpp.platform.library.path=/usr/local/cuda -Djavacpp.includePath=/usr/local/cuda/include:/usr/include -s <settings.xml> -f cuda/platform/redist/
