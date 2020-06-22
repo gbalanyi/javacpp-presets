@@ -11,7 +11,7 @@ import org.bytedeco.cuda.cudart.*;
 import static org.bytedeco.cuda.global.cudart.*;
 
 import static org.bytedeco.cuda.global.cudnn.*;
- /* dimension count */
+
 
 @Opaque @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnSeqDataStruct extends Pointer {

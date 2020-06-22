@@ -11,8 +11,9 @@ import org.bytedeco.cuda.cudart.*;
 import static org.bytedeco.cuda.global.cudart.*;
 
 import static org.bytedeco.cuda.global.cudnn.*;
- /* pointer to the returned workspace size */
 
+
+/* TODO: remove */
 @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnAlgorithm_t extends Pointer {
     static { Loader.load(); }

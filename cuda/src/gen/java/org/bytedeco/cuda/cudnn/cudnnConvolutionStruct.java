@@ -12,6 +12,8 @@ import static org.bytedeco.cuda.global.cudart.*;
 
 import static org.bytedeco.cuda.global.cudnn.*;
 
+// #endif
+
 @Opaque @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnConvolutionStruct extends Pointer {
     /** Empty constructor. Calls {@code super((Pointer)null)}. */

@@ -13,6 +13,7 @@ import static org.bytedeco.cuda.global.cudart.*;
 import static org.bytedeco.cuda.global.cudnn.*;
 
 
+/* cudnnFusedOps... */
 @Opaque @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnFusedOpsConstParamStruct extends Pointer {
     /** Empty constructor. Calls {@code super((Pointer)null)}. */
