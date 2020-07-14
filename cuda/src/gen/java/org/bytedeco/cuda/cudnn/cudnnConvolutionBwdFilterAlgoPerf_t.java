@@ -12,6 +12,9 @@ import static org.bytedeco.cuda.global.cudart.*;
 
 import static org.bytedeco.cuda.global.cudnn.*;
 
+// #endif
+
+/* helper function to provide the convolution backward filter algo that fit best the requirement */
 
 @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnConvolutionBwdFilterAlgoPerf_t extends Pointer {

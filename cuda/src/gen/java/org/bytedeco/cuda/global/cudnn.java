@@ -1208,7 +1208,8 @@ public static final int CUDNN_NORM_ALGO_STANDARD = 0, CUDNN_NORM_ALGO_PERSIST = 
  * scale, invVariance, bnBias, bnScale tensors. Use this tensor desc for
  * normScaleBiasMeanVarDesc and normScaleBiasDiffDesc in Normalization forward and backward functions.
  */
-public static native @Cast("cudnnStatus_t") int cudnnDeriveNormTensorDescriptor(cudnnTensorStruct derivedNormDesc,
+public static native @Cast("cudnnStatus_t") int cudnnDeriveNormTensorDescriptor(cudnnTensorStruct derivedNormScaleBiasDesc,
+                                cudnnTensorStruct derivedNormMeanVarDesc,
                                 cudnnTensorStruct xDesc,
                                 @Cast("cudnnNormMode_t") int mode,
                                 int groupCnt); /* Place hold for future work, should be set to 1 now*/
@@ -4126,13 +4127,6 @@ public static final int CUDNN_CONVOLUTION = 0, CUDNN_CROSS_CORRELATION = 1;
 public static final int
     CUDNN_DEFAULT_REORDER = 0,
     CUDNN_NO_REORDER      = 1;
-
-/* helper function to provide the convolution algo that fit best the requirement */
-/** enum cudnnConvolutionFwdPreference_t */
-public static final int
-    CUDNN_CONVOLUTION_FWD_NO_WORKSPACE            = 0,
-    CUDNN_CONVOLUTION_FWD_PREFER_FASTEST          = 1,
-    CUDNN_CONVOLUTION_FWD_SPECIFY_WORKSPACE_LIMIT = 2;
 // Targeting ../cudnn/cudnnConvolutionFwdAlgoPerf_t.java
 
 
@@ -4286,35 +4280,10 @@ public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionNdForwardOutp
                                       int nbDims,
                                       int[] tensorOuputDimA);
 
-/* cudnnGet* and cudnnFind* */
+/* helper function to provide the convolution forward algo that fit best the requirement */
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithmMaxCount(cudnnContext handle, IntPointer count);
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithmMaxCount(cudnnContext handle, IntBuffer count);
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithmMaxCount(cudnnContext handle, int[] count);
-
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithm(cudnnContext handle,
-                                    cudnnTensorStruct xDesc,
-                                    cudnnFilterStruct wDesc,
-                                    cudnnConvolutionStruct convDesc,
-                                    cudnnTensorStruct yDesc,
-                                    @Cast("cudnnConvolutionFwdPreference_t") int preference,
-                                    @Cast("size_t") long memoryLimitInBytes,
-                                    @Cast("cudnnConvolutionFwdAlgo_t*") IntPointer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithm(cudnnContext handle,
-                                    cudnnTensorStruct xDesc,
-                                    cudnnFilterStruct wDesc,
-                                    cudnnConvolutionStruct convDesc,
-                                    cudnnTensorStruct yDesc,
-                                    @Cast("cudnnConvolutionFwdPreference_t") int preference,
-                                    @Cast("size_t") long memoryLimitInBytes,
-                                    @Cast("cudnnConvolutionFwdAlgo_t*") IntBuffer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithm(cudnnContext handle,
-                                    cudnnTensorStruct xDesc,
-                                    cudnnFilterStruct wDesc,
-                                    cudnnConvolutionStruct convDesc,
-                                    cudnnTensorStruct yDesc,
-                                    @Cast("cudnnConvolutionFwdPreference_t") int preference,
-                                    @Cast("size_t") long memoryLimitInBytes,
-                                    @Cast("cudnnConvolutionFwdAlgo_t*") int[] algo);
 
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionForwardAlgorithm_v7(cudnnContext handle,
                                        cudnnTensorStruct srcDesc,
@@ -4467,14 +4436,6 @@ public static native @Cast("cudnnStatus_t") int cudnnConvolutionBiasActivationFo
                                       cudnnActivationStruct activationDesc,
                                       cudnnTensorStruct yDesc,
                                       Pointer y);
-
-/*********************************************************/
-/* helper function to provide the convolution algo that fit best the requirement */
-/** enum cudnnConvolutionBwdDataPreference_t */
-public static final int
-    CUDNN_CONVOLUTION_BWD_DATA_NO_WORKSPACE            = 0,
-    CUDNN_CONVOLUTION_BWD_DATA_PREFER_FASTEST          = 1,
-    CUDNN_CONVOLUTION_BWD_DATA_SPECIFY_WORKSPACE_LIMIT = 2;
 // Targeting ../cudnn/cudnnConvolutionBwdDataAlgoPerf_t.java
 
 
@@ -4547,31 +4508,6 @@ public static native @Cast("cudnnStatus_t") int cudnnFindConvolutionBackwardData
                                             cudnnConvolutionBwdDataAlgoPerf_t perfResults,
                                             Pointer workSpace,
                                             @Cast("size_t") long workSpaceSizeInBytes);
-
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardDataAlgorithm(cudnnContext handle,
-                                         cudnnFilterStruct wDesc,
-                                         cudnnTensorStruct dyDesc,
-                                         cudnnConvolutionStruct convDesc,
-                                         cudnnTensorStruct dxDesc,
-                                         @Cast("cudnnConvolutionBwdDataPreference_t") int preference,
-                                         @Cast("size_t") long memoryLimitInBytes,
-                                         @Cast("cudnnConvolutionBwdDataAlgo_t*") IntPointer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardDataAlgorithm(cudnnContext handle,
-                                         cudnnFilterStruct wDesc,
-                                         cudnnTensorStruct dyDesc,
-                                         cudnnConvolutionStruct convDesc,
-                                         cudnnTensorStruct dxDesc,
-                                         @Cast("cudnnConvolutionBwdDataPreference_t") int preference,
-                                         @Cast("size_t") long memoryLimitInBytes,
-                                         @Cast("cudnnConvolutionBwdDataAlgo_t*") IntBuffer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardDataAlgorithm(cudnnContext handle,
-                                         cudnnFilterStruct wDesc,
-                                         cudnnTensorStruct dyDesc,
-                                         cudnnConvolutionStruct convDesc,
-                                         cudnnTensorStruct dxDesc,
-                                         @Cast("cudnnConvolutionBwdDataPreference_t") int preference,
-                                         @Cast("size_t") long memoryLimitInBytes,
-                                         @Cast("cudnnConvolutionBwdDataAlgo_t*") int[] algo);
 
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardDataAlgorithm_v7(cudnnContext handle,
                                             cudnnFilterStruct filterDesc,
@@ -4894,14 +4830,6 @@ public static final int CUDNN_CNN_TRAIN_PATCH = 0;
 // #endif
 
 // #if defined(__cplusplus)
-// #endif
-
-/* helper function to provide the convolution algo that fit best the requirement */
-/** enum cudnnConvolutionBwdFilterPreference_t */
-public static final int
-    CUDNN_CONVOLUTION_BWD_FILTER_NO_WORKSPACE            = 0,
-    CUDNN_CONVOLUTION_BWD_FILTER_PREFER_FASTEST          = 1,
-    CUDNN_CONVOLUTION_BWD_FILTER_SPECIFY_WORKSPACE_LIMIT = 2;
 // Targeting ../cudnn/cudnnConvolutionBwdFilterAlgoPerf_t.java
 
 
@@ -4974,31 +4902,6 @@ public static native @Cast("cudnnStatus_t") int cudnnFindConvolutionBackwardFilt
                                               cudnnConvolutionBwdFilterAlgoPerf_t perfResults,
                                               Pointer workSpace,
                                               @Cast("size_t") long workSpaceSizeInBytes);
-
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardFilterAlgorithm(cudnnContext handle,
-                                           cudnnTensorStruct xDesc,
-                                           cudnnTensorStruct dyDesc,
-                                           cudnnConvolutionStruct convDesc,
-                                           cudnnFilterStruct dwDesc,
-                                           @Cast("cudnnConvolutionBwdFilterPreference_t") int preference,
-                                           @Cast("size_t") long memoryLimitInBytes,
-                                           @Cast("cudnnConvolutionBwdFilterAlgo_t*") IntPointer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardFilterAlgorithm(cudnnContext handle,
-                                           cudnnTensorStruct xDesc,
-                                           cudnnTensorStruct dyDesc,
-                                           cudnnConvolutionStruct convDesc,
-                                           cudnnFilterStruct dwDesc,
-                                           @Cast("cudnnConvolutionBwdFilterPreference_t") int preference,
-                                           @Cast("size_t") long memoryLimitInBytes,
-                                           @Cast("cudnnConvolutionBwdFilterAlgo_t*") IntBuffer algo);
-public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardFilterAlgorithm(cudnnContext handle,
-                                           cudnnTensorStruct xDesc,
-                                           cudnnTensorStruct dyDesc,
-                                           cudnnConvolutionStruct convDesc,
-                                           cudnnFilterStruct dwDesc,
-                                           @Cast("cudnnConvolutionBwdFilterPreference_t") int preference,
-                                           @Cast("size_t") long memoryLimitInBytes,
-                                           @Cast("cudnnConvolutionBwdFilterAlgo_t*") int[] algo);
 
 public static native @Cast("cudnnStatus_t") int cudnnGetConvolutionBackwardFilterAlgorithm_v7(cudnnContext handle,
                                               cudnnTensorStruct srcDesc,

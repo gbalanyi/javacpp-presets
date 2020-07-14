@@ -13,6 +13,8 @@ import static org.bytedeco.cuda.global.cudart.*;
 import static org.bytedeco.cuda.global.cudnn.*;
 
 
+/* helper function to provide the convolution backward data algo that fit best the requirement */
+
 @Properties(inherit = org.bytedeco.cuda.presets.cudnn.class)
 public class cudnnConvolutionBwdDataAlgoPerf_t extends Pointer {
     static { Loader.load(); }
